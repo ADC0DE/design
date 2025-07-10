@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="naver-site-verification" content="0991668c5c5769beb2d28fe968791331f74087d8" />
     <meta name="google-site-verification" content="dQcEO2HBpnlarN3np5r83W4U6qZ0SBVw66Hz9wzvnhE" />
-    <meta name="description" content="애드코드 디자인(ADCODE DESIGN), 끝까지 책임지는 디자인 파트너 시장에 정착하고 신뢰받을 때까지 모든 과정에 진심을 담아 실행합니다.adcode design, 애드코드 디자인.">
+    <meta name="description" content="애드코드(ADCODE), 끝까지 책임지는 마케팅 파트너 바이럴 마케팅 ⋅ 가게(매장) 마케팅 ⋅ 퍼포먼스 마케팅 ⋅ 디자인 제작 브랜드가 시장에 정착하고 신뢰받을 때까지 모든 과정에 진심을 담아 실행합니다.adcode marketing, 애드코드 마케팅.">
     <link rel="icon" href="/adcode_logo.jpg" type="image/jpeg">
     <meta property="og:image" content="https://adcode.co.kr/adcode_logo.jpg">
-    <title>애드코드 디자인 (ADCODE DESIGN), 끝까지 책임지는 디자인 파트너.</title>
+    <title>애드코드(ADCODE), 끝까지 책임지는 마케팅 파트너.</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -118,8 +118,8 @@
         }
         
         :root {
-            --primary: #3498db;
-            --primary-dark: #2980b9;
+            --primary: #345deb;
+            --primary-dark: #2a4dbf;
             --text-dark: #161616;
             --text-light: #333333; /* 더 진한 색상으로 통일 */
             --background: #ffffff;
@@ -1660,7 +1660,7 @@
 
         .sns-card .card-icon {
             background-color: rgba(0, 112, 240, 0.1);
-            color: #0070f0;
+            color: #345deb;
         }
 
         .experience-card .card-icon {
@@ -4343,6 +4343,77 @@
                 right: 10px;
             }
         }
+
+        /* About Section Stats & Partners */
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 5rem 0;
+        }
+
+        .stat-box {
+            background-color: #345deb;
+            color: #fff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(52, 93, 235, 0.2);
+            transition: all 0.3s var(--easing);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(52, 93, 235, 0.3);
+        }
+
+        .stat-box-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .stat-box-number {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .partners-logos {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .partners-logos h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 992px) {
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stat-box-title {
+                font-size: 1.3rem;
+            }
+            .stat-box-number {
+                font-size: 3.2rem;
+            }
+            .partners-logos h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-nav-next {
+                right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -4385,7 +4456,7 @@
             <div class="hero-content fade-in" style="max-width: 700px; margin-left: auto; margin-right: 0; padding-right: 5%; transform: translateX(10%);">
                 <h1 class="hero-title" style="font-weight: 100; color: #ffffff; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);">
                     브랜드의 가치를<br>
-                    <span style="color: #b8d8ff; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);">설득력있게<br>디자인 합니다</span>
+                    <span style="color: #a5b3f3; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);">설득력있게<br>디자인 합니다</span>
                 </h1>
                 <p class="hero-text" style="font-weight: 300; color: #ffffff; text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);">
                     단순한 디자인이 아닌<br>
@@ -4411,8 +4482,8 @@
             
             <div class="brand-story-text">
                 <p>하나의 브랜드가 세상에 얼굴을 내미는 순간, 우리는 그 뒷면의 수많은 고민과 열정을 함께 들여다봅니다.<br>
-                애드코드 디자인은 단지 디자인을 만드는 것이 아니라,<br>
-                브랜드가 말하고 싶은 이야기에 '형태'를, 고객이 느끼게 될 '감정'을 더합니다.</p>
+                애드코드 디자인은 단순히 디자인만 하는것이 아니라<br>
+                브랜드가 말하고 싶은 이야기에 '형태'와 고객이 느끼게 될 '감정'을 더합니다.</p>
 
                 <p>누군가는 처음 제품을 출시하던 날의 긴장을,<br>
                 또 누군가는 오래된 브랜드에 새 숨결을 불어넣던 그 날의 떨림을<br>
@@ -4427,6 +4498,15 @@
                 진심을 담은 디자인은 결국, 브랜드를 성장하게 만든다는 것을.</p>
             </div>
         </div>
+
+        <div class="about-more-info fade-in">
+                 <div class="partners-logos">
+                     <div style="display: flex; justify-content: center; align-items: center;">
+                         <img src="about/partners.jpg" alt="애드코드 파트너사" style="max-width: 100%; height: auto;">
+                     </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
