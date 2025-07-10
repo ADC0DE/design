@@ -5763,5 +5763,137 @@
         container.appendChild(connection);
     }
     </script>
+    
+    <script>
+    // --- Infinite Portfolio Gallery ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const galleryTypes = ['detail', 'cibi', 'package', 'sns'];
+        galleryTypes.forEach(type => {
+            initInfiniteGallery(type);
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                // Clear state to allow re-initialization
+                for (const key in galleryStates) {
+                    delete galleryStates[key];
+                }
+                galleryTypes.forEach(type => {
+                    const gallery = document.getElementById(`${type}-gallery`);
+                    if (gallery && gallery.parentElement) {
+                        const container = gallery.parentElement.parentElement;
+                        // Store original items to avoid re-cloning clones
+                        if (!container.dataset.originalHtml) {
+                           container.dataset.originalHtml = container.innerHTML;
+                        }
+                        container.innerHTML = container.dataset.originalHtml;
+                        initInfiniteGallery(type);
+                    }
+                });
+            }, 250);
+        });
+    });
+
+    const galleryStates = {};
+
+    function initInfiniteGallery(galleryType) {
+        const gallery = document.getElementById(`${galleryType}-gallery`);
+        if (!gallery || gallery.dataset.initialized === 'true') {
+            return;
+        }
+        
+        const container = gallery.parentElement;
+        const items = Array.from(gallery.querySelectorAll('.portfolio-item'));
+        
+        if (items.length === 0) return;
+
+        // Determine how many items are visible
+        const itemWidth = items[0].offsetWidth;
+        if (itemWidth === 0) {
+            setTimeout(() => initInfiniteGallery(galleryType), 100);
+            return;
+        }
+        const gap = parseFloat(window.getComputedStyle(gallery).gap);
+        const totalItemWidth = itemWidth + gap;
+        let itemsPerView = Math.floor(container.offsetWidth / totalItemWidth);
+        if(itemsPerView === 0) itemsPerView = 1;
+
+        if (items.length <= itemsPerView) {
+            const galleryContainer = gallery.closest('.portfolio-gallery-container');
+            if(galleryContainer){
+                const nextBtn = galleryContainer.querySelector('.gallery-nav-next');
+                const prevBtn = galleryContainer.querySelector('.gallery-nav-prev');
+                if(nextBtn) nextBtn.style.display = 'none';
+                if(prevBtn) prevBtn.style.display = 'none';
+            }
+            return;
+        }
+        
+        const clonesCount = items.length;
+        const firstItemClones = items.slice(0, clonesCount).map(item => item.cloneNode(true));
+        const lastItemClones = items.slice(-clonesCount).map(item => item.cloneNode(true));
+
+        firstItemClones.forEach(clone => gallery.appendChild(clone));
+        lastItemClones.reverse().forEach(clone => gallery.prepend(clone));
+        
+        const initialOffset = clonesCount * totalItemWidth;
+        gallery.style.transform = `translateX(-${initialOffset}px)`;
+        
+        galleryStates[galleryType] = {
+            element: gallery,
+            isTransitioning: false,
+            itemCount: items.length,
+            totalItemWidth: totalItemWidth,
+            clonesCount: clonesCount,
+            currentIndex: clonesCount
+        };
+        
+        gallery.dataset.initialized = 'true';
+        
+        gallery.addEventListener('transitionend', () => {
+            handleTransitionEnd(galleryType);
+        });
+    }
+
+    function scrollGallery(galleryType, direction) {
+        const state = galleryStates[galleryType];
+        if (!state || state.isTransitioning) return;
+
+        state.isTransitioning = true;
+        
+        state.currentIndex += direction;
+
+        state.element.style.transition = 'transform 0.4s ease';
+        state.element.style.transform = `translateX(-${state.currentIndex * state.totalItemWidth}px)`;
+    }
+
+    function handleTransitionEnd(galleryType) {
+        const state = galleryStates[galleryType];
+        if (!state) return;
+        
+        const jumpToIndex = (index) => {
+            state.element.style.transition = 'none';
+            state.currentIndex = index;
+            state.element.style.transform = `translateX(-${state.currentIndex * state.totalItemWidth}px)`;
+        }
+
+        if (state.currentIndex >= state.clonesCount + state.itemCount) {
+            jumpToIndex(state.currentIndex - state.itemCount);
+        }
+        else if (state.currentIndex < state.clonesCount) {
+             jumpToIndex(state.currentIndex + state.itemCount);
+        }
+        
+        // Use requestAnimationFrame to defer setting transitioning to false
+        // This helps prevent flickering on some browsers
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                state.isTransitioning = false;
+            });
+        });
+    }
+    </script>
 </body>
 </html>
